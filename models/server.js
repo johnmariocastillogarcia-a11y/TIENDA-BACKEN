@@ -1,6 +1,7 @@
 
 import express from "express";
 import 'dotenv/config';
+import cors from 'cors'
 
 export class Server {
     constructor(){
@@ -11,16 +12,37 @@ export class Server {
     }
 //segundo metodo de mi clase Server
     routes(){
-        this.app.get('/', (req, res) => {
-            res.send({
-                message: 'hola mundo de mi servidor.'
+        this.app.get('/api', (req, res) => {
+            res.json({
+                msg: 'GET - Server'
+            })
+        });
+
+        this.app.post('/api', (req, res) => {
+            res.json({
+                msg: 'POST - Server'
+            })
+        });
+
+        this.app.put('/api', (req, res) => {
+            res.json({
+                msg: 'PUT - Server'
+            })
+        });
+
+        this.app.delete('/api', (req, res) => {
+            res.json({
+                msg: 'DELETE - Server'
             })
         });
     }
 
     // metodo 3 de mi clase server
     middlewares(){
+        this.app.use(cors());
         this.app.use(express.static('public'));
+        this.app.use(express.json());
+        
     }
 
  // Primer metodo de mi clase server
